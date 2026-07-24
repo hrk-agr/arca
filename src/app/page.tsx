@@ -1,195 +1,234 @@
-import Image from "next/image";
 import Link from "next/link";
-import { useCases } from "@/data/use-cases";
-import UseCaseCard from "@/components/UseCaseCard";
+import {
+  PipelineDiagram,
+  EmbeddingsTableDiagram,
+  HybridRetrievalDiagram,
+} from "@/components/diagrams";
 
-const techPartners = [
-  "Anthropic", "OpenAI", "AWS", "Google Cloud", "Microsoft Azure",
-  "Slack", "GitHub", "Jira", "Salesforce", "Notion",
+const stats = [
+  { v: "1", k: "embeddings table", s: "every source lands in the same place" },
+  { v: "6", k: "retrievers in parallel", s: "fused, then reranked" },
+  { v: "3072", k: "dimensions", s: "pgvector · HNSW" },
+  { v: "∞", k: "connectors", s: "add one with a pull request" },
 ];
 
-const steps = [
-  {
-    number: "01",
-    title: "Free Audit",
-    description:
-      "We spend 30 minutes with your team mapping your operations and identifying where AI can have the most impact. You receive a written report — no strings attached.",
-  },
-  {
-    number: "02",
-    title: "Scoped Design",
-    description:
-      "We design a solution tailored to your existing stack, your data, and your team's workflows. No rip-and-replace. No new platforms to adopt.",
-  },
-  {
-    number: "03",
-    title: "Build & Deploy",
-    description:
-      "We build and ship the agents directly into your systems — tested, documented, and ready for your team to use from day one.",
-  },
-  {
-    number: "04",
-    title: "Ongoing Support",
-    description:
-      "We monitor, iterate, and expand as your needs evolve. You grow your AI capabilities without growing your headcount.",
-  },
+const sources = [
+  { k: "Slack", v: "Threads distilled into searchable Q&A, live over Socket Mode." },
+  { k: "Code repos", v: "Language-aware chunking across 40 GB+ repositories." },
+  { k: "Wiki / Confluence", v: "Sections embedded with neighbors kept for context." },
+  { k: "Incidents & Jira", v: "Status and resolutions, ranked by recency." },
+  { k: "Netlists & PRM docs", v: "Domain artifacts, queryable like everything else." },
+  { k: "Custom databases", v: "A small Python plugin emits rows into the shared table." },
 ];
 
-const painPoints = [
+const interfaces = [
   {
-    heading: "AI is moving fast.",
-    body: "Keeping pace with it internally requires an expensive team with a very specific skill set. Most companies don't have one.",
+    k: "Web UI",
+    v: "Ask a question, get a cited answer. Planner → executor → synthesizer runs end to end.",
   },
   {
-    heading: "You don't know where to start.",
-    body: "There are a hundred ways to use AI in your business. Finding the ones that actually move the needle takes time you don't have.",
+    k: "MCP",
+    v: "Retrieval primitives exposed as direct, LLM-free tools. Claude Code owns the orchestration.",
   },
   {
-    heading: "You can't build a dedicated AI team overnight.",
-    body: "Hiring is slow, expensive, and uncertain. You need results now, not in eighteen months.",
+    k: "Automations",
+    v: "The same query surface for bots and pipelines — narrow, structured, stable inputs and outputs.",
   },
 ];
-
-const previewUseCases = useCases.slice(0, 6);
 
 export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[88vh] flex flex-col items-center justify-center text-center px-6 bg-white">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(107,163,216,0.12),transparent)] pointer-events-none" />
-        <div className="relative max-w-3xl mx-auto flex flex-col items-center gap-6">
-          <p className="text-sm text-slate-500">
-            We work with your team to figure out where AI fits — then build it.
+      <section className="relative overflow-hidden border-b border-ink-line bg-white">
+        <div className="pointer-events-none absolute inset-0 opacity-60 [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black,transparent)] grid-bg" />
+        <div className="relative mx-auto max-w-6xl px-6 pt-20 pb-16 md:pt-28">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="eyebrow">Enterprise knowledge base</p>
+            <h1 className="mt-5 font-display text-5xl font-semibold leading-[1.05] tracking-tight text-ink md:text-6xl">
+              Ask your company
+              <br />
+              <span className="text-brand-500">anything.</span>
+            </h1>
+            <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-ink-mute">
+              Arca meets your information where it already lives — Slack, code,
+              wikis, incidents — and turns it into cited, trustworthy answers for
+              humans, automations, and agents.
+            </p>
+            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <a
+                href="mailto:hello@arca-global.com?subject=Arca demo"
+                className="rounded-lg bg-ink px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-ink-soft"
+              >
+                Get a demo
+              </a>
+              <Link
+                href="/how-it-works"
+                className="rounded-lg border border-ink-line px-6 py-3 text-sm font-medium text-ink-soft transition-colors hover:border-ink-faint hover:bg-ink-wash"
+              >
+                See the architecture →
+              </Link>
+            </div>
+          </div>
+
+          <div className="mt-14">
+            <PipelineDiagram />
+          </div>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="border-b border-ink-line bg-ink-paper">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-px overflow-hidden md:grid-cols-4">
+          {stats.map((s) => (
+            <div key={s.k} className="bg-ink-paper px-6 py-8">
+              <div className="font-display text-4xl font-semibold text-ink">
+                {s.v}
+              </div>
+              <div className="mt-1 font-mono text-[11px] font-medium uppercase tracking-[0.1em] text-brand-500">
+                {s.k}
+              </div>
+              <div className="mt-1 text-xs text-ink-mute">{s.s}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Meeting data where it lives */}
+      <section className="bg-white py-24 px-6">
+        <div className="mx-auto max-w-6xl">
+          <div className="max-w-2xl">
+            <p className="eyebrow">Meeting data where it lives</p>
+            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
+              The single source of truth rarely works in practice.
+            </h2>
+            <p className="mt-4 leading-relaxed text-ink-mute">
+              Information is generated wherever it&apos;s convenient: suggested
+              edits in a doc, threads in Slack, code references in GitHub, status
+              in Jira. Each platform is tailor-made for its domain. So instead of
+              forcing everything into one rigid system, Arca extracts from each
+              source directly — with minimal change to how your teams already
+              work.
+            </p>
+          </div>
+
+          <div className="mt-12">
+            <EmbeddingsTableDiagram />
+          </div>
+
+          <p className="mx-auto mt-6 max-w-2xl text-center text-sm text-ink-mute">
+            Every source, from Slack threads to netlists, lands in the same
+            embeddings table — and anything in that table is immediately
+            queryable through the same interface.
           </p>
-          <h1 className="text-5xl md:text-6xl font-semibold tracking-tight text-slate-900 leading-[1.1]">
-            We build AI<br />
-            <span className="text-brand-400">for your business.</span>
-          </h1>
-          <p className="text-lg md:text-xl text-slate-500 max-w-xl leading-relaxed">
-            Arca AI partners with growing companies to find where AI has the biggest impact, then builds and deploys it — inside your existing stack.
+        </div>
+      </section>
+
+      {/* Sources */}
+      <section id="sources" className="border-y border-ink-line bg-ink-paper py-24 px-6">
+        <div className="mx-auto max-w-6xl">
+          <div className="max-w-2xl">
+            <p className="eyebrow">One connector per source</p>
+            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
+              Connect what you have. Query it the same way.
+            </h2>
+            <p className="mt-4 leading-relaxed text-ink-mute">
+              Each source defines what the data is, how to connect to it, and how
+              often to fetch it. Every resulting row follows the same interface —
+              no migration, no rip-and-replace.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {sources.map((s) => (
+              <div
+                key={s.k}
+                className="rounded-xl border border-ink-line bg-white p-6"
+              >
+                <h3 className="font-display text-base font-semibold text-ink">
+                  {s.k}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-mute">
+                  {s.v}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Hybrid retrieval */}
+      <section className="bg-white py-24 px-6">
+        <div className="mx-auto max-w-6xl">
+          <div className="max-w-2xl">
+            <p className="eyebrow">Hybrid retrieval</p>
+            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
+              No single scorer is trusted on its own.
+            </h2>
+            <p className="mt-4 leading-relaxed text-ink-mute">
+              Vector search alone isn&apos;t enough for messy real-world data.
+              Every thread is retrievable through several techniques at once,
+              where each makes up for the weaknesses of the others — then the
+              results are fused and reranked.
+            </p>
+          </div>
+
+          <div className="mt-12">
+            <HybridRetrievalDiagram />
+          </div>
+        </div>
+      </section>
+
+      {/* Interfaces */}
+      <section id="interfaces" className="border-y border-ink-line bg-ink-paper py-24 px-6">
+        <div className="mx-auto max-w-6xl">
+          <div className="max-w-2xl">
+            <p className="eyebrow">Humans, automations, and agents</p>
+            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">
+              One retrieval layer. Every consumer.
+            </h2>
+          </div>
+          <div className="mt-12 grid gap-4 md:grid-cols-3">
+            {interfaces.map((i) => (
+              <div
+                key={i.k}
+                className="flex flex-col rounded-xl border border-ink-line bg-white p-6"
+              >
+                <span className="mono-label">{i.k}</span>
+                <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+                  {i.v}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="bg-white py-28 px-6">
+        <div className="mx-auto flex max-w-2xl flex-col items-center gap-6 text-center">
+          <p className="eyebrow">Get started</p>
+          <h2 className="font-display text-4xl font-semibold tracking-tight text-ink">
+            Give every team a single place to ask.
+          </h2>
+          <p className="text-lg text-ink-mute">
+            See how Arca connects to your stack and starts returning cited answers
+            — usually within the first week.
           </p>
-          <div className="flex flex-col sm:flex-row items-center gap-3 mt-2">
+          <div className="mt-2 flex flex-col items-center gap-3 sm:flex-row">
             <a
-              href="mailto:hello@arca-global.com?subject=Free AI Audit Request"
-              className="px-6 py-3 rounded-lg bg-brand-400 text-white font-medium text-sm hover:bg-brand-500 transition-colors"
+              href="mailto:hello@arca-global.com?subject=Arca demo"
+              className="rounded-lg bg-ink px-8 py-3.5 text-sm font-medium text-white transition-colors hover:bg-ink-soft"
             >
-              Get a Free Audit
+              Get a demo
             </a>
             <Link
-              href="/use-cases"
-              className="px-6 py-3 rounded-lg border border-slate-200 text-slate-700 font-medium text-sm hover:border-slate-300 hover:bg-slate-50 transition-colors"
+              href="/blog/how-we-built-our-knowledge-base"
+              className="rounded-lg border border-ink-line px-8 py-3.5 text-sm font-medium text-ink-soft transition-colors hover:border-ink-faint hover:bg-ink-wash"
             >
-              See what we build →
+              Read how we built it →
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* Pain points */}
-      <section className="py-24 px-6 bg-slate-50">
-        <div className="max-w-6xl mx-auto">
-          <div className="max-w-xl mb-14">
-            <h2 className="text-3xl font-semibold tracking-tight text-slate-900 mb-4">
-              The problem every growing company faces
-            </h2>
-            <p className="text-slate-500">
-              You know AI can help. You just don&apos;t know where to start, and you don&apos;t have the team to figure it out.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {painPoints.map((p) => (
-              <div key={p.heading} className="bg-white rounded-xl p-6 border border-slate-100">
-                <h3 className="text-base font-semibold text-slate-900 mb-2">{p.heading}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed">{p.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How it works */}
-      <section className="py-24 px-6 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="max-w-xl mb-14">
-            <h2 className="text-3xl font-semibold tracking-tight text-slate-900 mb-4">
-              How it works
-            </h2>
-            <p className="text-slate-500">
-              From a 30-minute call to a deployed agent — here&apos;s what working with Arca AI looks like.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {steps.map((step) => (
-              <div key={step.number} className="flex flex-col gap-4">
-                <span className="text-3xl font-bold text-brand-200">{step.number}</span>
-                <h3 className="text-base font-semibold text-slate-900">{step.title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed">{step.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Use cases preview */}
-      <section className="py-24 px-6 bg-slate-50">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-            <div className="max-w-xl">
-              <h2 className="text-3xl font-semibold tracking-tight text-slate-900 mb-4">
-                A sample of what we deploy
-              </h2>
-              <p className="text-slate-500">
-                From engineering to finance to sales — AI agents that slot into your existing workflows.
-              </p>
-            </div>
-            <Link
-              href="/use-cases"
-              className="shrink-0 text-sm font-medium text-brand-500 hover:text-brand-600 transition-colors"
-            >
-              View full catalog →
-            </Link>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {previewUseCases.map((uc) => (
-              <UseCaseCard key={uc.id} useCase={uc} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Tech partners */}
-      <section className="py-16 px-6 bg-white border-y border-slate-100">
-        <div className="max-w-6xl mx-auto">
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider text-center mb-8">
-            Works with your existing stack
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
-            {techPartners.map((name) => (
-              <span key={name} className="text-sm font-medium text-slate-400 hover:text-slate-600 transition-colors">
-                {name}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-32 px-6 bg-white">
-        <div className="max-w-2xl mx-auto text-center flex flex-col items-center gap-6">
-          <h2 className="text-4xl font-semibold tracking-tight text-slate-900">
-            See where AI fits in your business.
-          </h2>
-          <p className="text-lg text-slate-500">
-            A 30-minute call. A written audit. No commitment. Just a clear picture of where AI can move the needle for your team.
-          </p>
-          <a
-            href="mailto:hello@arca-global.com?subject=Free AI Audit Request"
-            className="mt-2 px-8 py-3.5 rounded-lg bg-brand-400 text-white font-medium text-sm hover:bg-brand-500 transition-colors"
-          >
-            Get a Free Audit
-          </a>
-          <p className="text-xs text-slate-400">We respond within one business day.</p>
         </div>
       </section>
     </>

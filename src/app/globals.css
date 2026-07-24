@@ -7,5 +7,41 @@ html {
 }
 
 body {
-  @apply antialiased text-slate-900 bg-white;
+  @apply antialiased text-ink bg-white;
+  font-feature-settings: "ss01", "cv01";
+}
+
+@layer base {
+  /* Inline code chips inside prose. */
+  article :where(p, li) code {
+    @apply rounded border border-ink-line bg-ink-wash px-1.5 py-0.5 font-mono text-[0.85em] text-ink-soft;
+  }
+}
+
+@layer components {
+  /* Monospace, letter-spaced, uppercase eyebrow label — the signature accent label. */
+  .eyebrow {
+    @apply font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-brand-500;
+  }
+  .mono-label {
+    @apply font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-ink-mute;
+  }
+  /* Node chip used inside technical diagrams. */
+  .node {
+    @apply rounded-md border border-ink-line bg-white px-3 py-2 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-soft;
+  }
+  .node-accent {
+    @apply rounded-md border border-brand-200 bg-brand-50 px-3 py-2 font-mono text-[11px] uppercase tracking-[0.08em] text-brand-700;
+  }
+}
+
+@layer utilities {
+  .grid-bg {
+    background-image: radial-gradient(
+      circle,
+      rgba(15, 20, 32, 0.07) 1px,
+      transparent 1px
+    );
+    background-size: 22px 22px;
+  }
 }

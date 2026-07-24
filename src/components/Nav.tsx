@@ -1,70 +1,78 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import Wordmark from "./Wordmark";
+
+const links = [
+  { href: "/how-it-works", label: "How it works" },
+  { href: "/blog/how-we-built-our-knowledge-base", label: "Engineering" },
+  { href: "/about", label: "About" },
+];
 
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-slate-100">
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <Image src="/logo.png" alt="Arca AI" width={110} height={36} priority />
-        </Link>
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-ink-line bg-white/80 backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+        <Wordmark />
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          <Link href="/use-cases" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-            Use Cases
-          </Link>
-          <Link href="/about" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-            About
-          </Link>
-          <a
-            href="mailto:hello@arca-global.com"
-            className="text-sm text-slate-600 hover:text-slate-900 transition-colors"
-          >
-            Contact
-          </a>
+        <nav className="hidden items-center gap-8 md:flex">
+          {links.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="text-sm text-ink-mute transition-colors hover:text-ink"
+            >
+              {l.label}
+            </Link>
+          ))}
         </nav>
 
-        <a
-          href="mailto:hello@arca-global.com?subject=Free AI Audit Request"
-          className="hidden md:inline-flex items-center px-4 py-2 rounded-lg bg-brand-400 text-white text-sm font-medium hover:bg-brand-500 transition-colors"
-        >
-          Get a Free Audit
-        </a>
+        <div className="hidden items-center gap-3 md:flex">
+          <a
+            href="mailto:hello@arca-global.com?subject=Arca demo"
+            className="text-sm text-ink-mute transition-colors hover:text-ink"
+          >
+            Sign in
+          </a>
+          <a
+            href="mailto:hello@arca-global.com?subject=Arca demo"
+            className="inline-flex items-center rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-ink-soft"
+          >
+            Get a demo
+          </a>
+        </div>
 
-        {/* Mobile hamburger */}
         <button
-          className="md:hidden p-2 text-slate-600"
+          className="p-2 text-ink-mute md:hidden"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
-          <span className="block w-5 h-px bg-current mb-1" />
-          <span className="block w-5 h-px bg-current mb-1" />
-          <span className="block w-5 h-px bg-current" />
+          <span className="mb-1 block h-px w-5 bg-current" />
+          <span className="mb-1 block h-px w-5 bg-current" />
+          <span className="block h-px w-5 bg-current" />
         </button>
       </div>
 
       {menuOpen && (
-        <div className="md:hidden bg-white border-b border-slate-100 px-6 py-4 flex flex-col gap-4">
-          <Link href="/use-cases" className="text-sm text-slate-700" onClick={() => setMenuOpen(false)}>
-            Use Cases
-          </Link>
-          <Link href="/about" className="text-sm text-slate-700" onClick={() => setMenuOpen(false)}>
-            About
-          </Link>
-          <a href="mailto:hello@arca-global.com" className="text-sm text-slate-700">
-            Contact
-          </a>
+        <div className="flex flex-col gap-4 border-b border-ink-line bg-white px-6 py-4 md:hidden">
+          {links.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="text-sm text-ink-soft"
+              onClick={() => setMenuOpen(false)}
+            >
+              {l.label}
+            </Link>
+          ))}
           <a
-            href="mailto:hello@arca-global.com?subject=Free AI Audit Request"
-            className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-brand-400 text-white text-sm font-medium"
+            href="mailto:hello@arca-global.com?subject=Arca demo"
+            className="inline-flex items-center justify-center rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white"
           >
-            Get a Free Audit
+            Get a demo
           </a>
         </div>
       )}

@@ -1,36 +1,64 @@
-import Image from "next/image";
 import Link from "next/link";
+import Wordmark from "./Wordmark";
+
+const cols = [
+  {
+    title: "Product",
+    links: [
+      { href: "/how-it-works", label: "How it works" },
+      { href: "/how-it-works#sources", label: "Sources" },
+      { href: "/how-it-works#retrieval", label: "Retrieval" },
+      { href: "/how-it-works#mcp", label: "MCP & agents" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { href: "/blog/how-we-built-our-knowledge-base", label: "Engineering blog" },
+      { href: "/about", label: "About Arca" },
+    ],
+  },
+  {
+    title: "Contact",
+    links: [{ href: "mailto:hello@arca-global.com", label: "hello@arca-global.com" }],
+  },
+];
 
 export default function Footer() {
   return (
-    <footer className="border-t border-slate-100 bg-white">
-      <div className="max-w-6xl mx-auto px-6 py-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+    <footer className="border-t border-ink-line bg-ink-paper">
+      <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div className="flex flex-col gap-3">
-          <Link href="/">
-            <Image src="/logo.png" alt="Arca AI" width={90} height={30} />
-          </Link>
-          <p className="text-sm text-slate-500 max-w-xs">
-            AI built for your business, deployed inside your existing stack.
+          <Wordmark />
+          <p className="max-w-xs text-sm leading-relaxed text-ink-mute">
+            The knowledge base that meets your company&apos;s information where it
+            already lives — and answers with citations.
           </p>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-8 md:gap-16 text-sm">
-          <div className="flex flex-col gap-2">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Company</span>
-            <Link href="/about" className="text-slate-600 hover:text-slate-900 transition-colors">About</Link>
-            <Link href="/use-cases" className="text-slate-600 hover:text-slate-900 transition-colors">Use Cases</Link>
+        {cols.map((col) => (
+          <div key={col.title} className="flex flex-col gap-3 text-sm">
+            <span className="mono-label">{col.title}</span>
+            {col.links.map((l) => (
+              <Link
+                key={l.label}
+                href={l.href}
+                className="text-ink-mute transition-colors hover:text-ink"
+              >
+                {l.label}
+              </Link>
+            ))}
           </div>
-          <div className="flex flex-col gap-2">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Contact</span>
-            <a href="mailto:hello@arca-global.com" className="text-slate-600 hover:text-slate-900 transition-colors">
-              hello@arca-global.com
-            </a>
-          </div>
-        </div>
+        ))}
       </div>
 
-      <div className="border-t border-slate-100 max-w-6xl mx-auto px-6 py-4">
-        <p className="text-xs text-slate-400">© {new Date().getFullYear()} Arca AI. All rights reserved.</p>
+      <div className="border-t border-ink-line">
+        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-2 px-6 py-4 text-xs text-ink-faint sm:flex-row sm:items-center">
+          <p>© {new Date().getFullYear()} Arca. All rights reserved.</p>
+          <p className="font-mono uppercase tracking-[0.14em]">
+            One embeddings table · every source
+          </p>
+        </div>
       </div>
     </footer>
   );

@@ -9,21 +9,41 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Blue accent — technical, confident, calm.
         brand: {
-          50:  "#EEF4FB",
-          100: "#D9E8F5",
-          200: "#B4D1EB",
-          300: "#8FBAE1",
-          400: "#6BA3D8",
-          500: "#5A8EC4",
-          600: "#4A79B0",
-          700: "#3A609A",
-          800: "#2D4B7A",
-          900: "#1E3358",
+          50:  "#EEF4FF",
+          100: "#D9E6FF",
+          200: "#BBD1FF",
+          300: "#8EB3FD",
+          400: "#5E8CF9",
+          500: "#3B6AF0",
+          600: "#254FDD",
+          700: "#1D3EBE",
+          800: "#1D379A",
+          900: "#1D3379",
+        },
+        // Cool near-black ink + neutrals.
+        ink: {
+          DEFAULT: "#0f1420",
+          soft: "#2b3242",
+          mute: "#5c6474",
+          faint: "#8b93a3",
+          line: "#e5e8ef",
+          wash: "#f4f6fa",
+          paper: "#f9fafc",
         },
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "var(--font-inter)", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+      },
+      backgroundImage: {
+        "grid-dots":
+          "radial-gradient(circle, rgba(23,19,16,0.09) 1px, transparent 1px)",
+      },
+      backgroundSize: {
+        "grid-dots": "22px 22px",
       },
     },
   },

@@ -2,116 +2,144 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "About — Arca AI",
-  description: "Arca AI is an AI consulting and deployment firm for mid-market companies.",
+  title: "About — Arca",
+  description:
+    "Arca builds the enterprise knowledge base that meets information where it already lives — and answers with citations.",
 };
 
-const values = [
+const principles = [
   {
-    title: "We work with you, not at you.",
+    title: "Meet data where it lives.",
     description:
-      "We start by listening. Every engagement begins with understanding your operations, your team, and your constraints — before we write a single line of code.",
+      "The single source of truth rarely works in practice. We extract from Slack, code, wikis, and incidents directly — with minimal change to how your teams already work.",
   },
   {
-    title: "No black boxes.",
+    title: "No migration, no rip-and-replace.",
     description:
-      "The agents we build are yours. We document everything, hand off the keys, and make sure your team understands how to maintain and extend what we've built.",
+      "Every source lands in one embeddings table behind one connector. Anything in that table is immediately queryable through the same interface.",
   },
   {
-    title: "Fit first, features second.",
+    title: "Trust the evidence, not one scorer.",
     description:
-      "The best AI solution is the one that works inside your existing stack without disruption. We never recommend a tool because it's new — only because it fits.",
+      "Full-text, embeddings, IDF, and recency each cover the others' weaknesses. We fuse, rerank, and expand context so answers come with citations you can check.",
   },
   {
-    title: "Small bets, fast results.",
+    title: "Built for humans and agents.",
     description:
-      "We scope tightly, deploy quickly, and prove value before expanding. You see results in weeks, not quarters.",
+      "The same retrieval layer serves a web UI, MCP tools, and automations — narrow, structured, and stable enough for any client to build on.",
   },
 ];
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <div className="bg-slate-50 border-b border-slate-100 px-6 py-16">
-        <div className="max-w-6xl mx-auto max-w-3xl">
-          <h1 className="text-4xl font-semibold tracking-tight text-slate-900 mb-4">About Arca AI</h1>
-          <p className="text-lg text-slate-500 leading-relaxed max-w-2xl">
-            We believe most companies already have the data, the workflows, and the problems that AI can solve. They just don&apos;t have the team to figure out how.
+    <div className="bg-white">
+      <div className="border-b border-ink-line bg-ink-paper px-6 py-20">
+        <div className="mx-auto max-w-3xl">
+          <p className="eyebrow">About Arca</p>
+          <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight text-ink md:text-5xl">
+            Connecting people and systems to useful information.
+          </h1>
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-mute">
+            As companies grow, the same questions pile up in every channel:
+            where can I find X, who is the expert in Y, what is Z. Arca exists to
+            answer them — from the information your teams are already creating.
           </p>
         </div>
       </div>
 
-      {/* Mission */}
-      <section className="py-20 px-6">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-start">
+      <section className="px-6 py-20">
+        <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-2">
           <div>
-            <h2 className="text-2xl font-semibold text-slate-900 mb-6">What we do</h2>
-            <div className="flex flex-col gap-4 text-slate-500 text-sm leading-relaxed">
+            <h2 className="font-display text-2xl font-semibold text-ink">
+              What we build
+            </h2>
+            <div className="mt-6 flex flex-col gap-4 text-sm leading-relaxed text-ink-mute">
               <p>
-                Arca AI is an AI consulting and deployment firm for mid-market companies. We partner with your team to identify where AI can have the most meaningful impact across your operations, then we build and deploy it — inside your existing systems.
+                Arca is an enterprise knowledge base. At its core is a single
+                Postgres table that holds embeddings, summaries, and metadata
+                from every source — Slack threads, code repositories, wiki
+                sections, incidents, and custom databases.
               </p>
               <p>
-                We work across engineering, security, HR, finance, operations, and go-to-market. Our work ranges from single-workflow automation agents to multi-system orchestration that touches your entire organisation.
+                The system continually ingests data from across your company and
+                maintains a query-ready datastore, then fuses several retrieval
+                techniques to return cited answers through a web UI, MCP tools,
+                and automations.
               </p>
               <p>
-                Every engagement starts with a free audit: a 30-minute call and a written report that maps your operations and identifies your highest-value AI opportunities — no commitment required.
+                Developers can extend it. Adding a new source is a pull request:
+                a small connector that emits rows shaped like the shared
+                embeddings table, and everything downstream works unchanged.
               </p>
             </div>
           </div>
           <div>
-            <h2 className="text-2xl font-semibold text-slate-900 mb-6">Who we work with</h2>
-            <div className="flex flex-col gap-4 text-slate-500 text-sm leading-relaxed">
+            <h2 className="font-display text-2xl font-semibold text-ink">
+              Why it works
+            </h2>
+            <div className="mt-6 flex flex-col gap-4 text-sm leading-relaxed text-ink-mute">
               <p>
-                We work best with companies in the 100–500 employee range: large enough to have real operational complexity, small enough that every efficiency gain is felt across the organisation.
+                Most knowledge tools fail because they ask people to change where
+                they work. Arca doesn&apos;t. It meets information where it
+                already lives and stays flexible enough for real company data —
+                while staying structured enough to remain useful as you grow.
               </p>
               <p>
-                Our buyers are typically CTOs, VPs of Engineering, Heads of Operations, or founders who want to move fast on AI without hiring a dedicated team to do it.
-              </p>
-              <p>
-                Industry doesn&apos;t matter. The problems we solve are universal. If you have data, workflows, and a team spending time on repetitive or information-heavy tasks, we can help.
+                We combine full-text and vector search, term rarity, and recency,
+                then rerank against the actual question and expand the winners
+                with surrounding context. The result is evidence you can trust,
+                with sources you can check.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Values */}
-      <section className="py-20 px-6 bg-slate-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl font-semibold text-slate-900 mb-12">How we work</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {values.map((v) => (
-              <div key={v.title} className="bg-white rounded-xl p-6 border border-slate-100">
-                <h3 className="text-sm font-semibold text-slate-900 mb-2">{v.title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed">{v.description}</p>
+      <section className="border-y border-ink-line bg-ink-paper px-6 py-20">
+        <div className="mx-auto max-w-6xl">
+          <p className="eyebrow">Principles</p>
+          <h2 className="mt-4 font-display text-2xl font-semibold text-ink">
+            How we think about knowledge.
+          </h2>
+          <div className="mt-10 grid gap-4 md:grid-cols-2">
+            {principles.map((p) => (
+              <div
+                key={p.title}
+                className="rounded-xl border border-ink-line bg-white p-6"
+              >
+                <h3 className="font-display text-base font-semibold text-ink">
+                  {p.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-mute">
+                  {p.description}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 px-6">
-        <div className="max-w-2xl mx-auto text-center flex flex-col items-center gap-6">
-          <h2 className="text-3xl font-semibold tracking-tight text-slate-900">
-            Ready to find out where AI fits?
+      <section className="px-6 py-24">
+        <div className="mx-auto flex max-w-2xl flex-col items-center gap-6 text-center">
+          <h2 className="font-display text-3xl font-semibold tracking-tight text-ink">
+            Ask your company anything.
           </h2>
-          <p className="text-slate-500">
-            Start with a free 30-minute audit. We&apos;ll map your operations and tell you exactly where AI can help — in writing.
+          <p className="text-ink-mute">
+            See how Arca connects to your stack and starts returning cited
+            answers.
           </p>
-          <div className="flex flex-col sm:flex-row items-center gap-3">
+          <div className="flex flex-col items-center gap-3 sm:flex-row">
             <a
-              href="mailto:hello@arca-global.com?subject=Free AI Audit Request"
-              className="px-6 py-3 rounded-lg bg-brand-400 text-white font-medium text-sm hover:bg-brand-500 transition-colors"
+              href="mailto:hello@arca-global.com?subject=Arca demo"
+              className="rounded-lg bg-ink px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-ink-soft"
             >
-              Get a Free Audit
+              Get a demo
             </a>
             <Link
-              href="/use-cases"
-              className="px-6 py-3 rounded-lg border border-slate-200 text-slate-700 font-medium text-sm hover:border-slate-300 hover:bg-slate-50 transition-colors"
+              href="/how-it-works"
+              className="rounded-lg border border-ink-line px-6 py-3 text-sm font-medium text-ink-soft transition-colors hover:border-ink-faint hover:bg-ink-wash"
             >
-              Browse use cases →
+              See the architecture →
             </Link>
           </div>
         </div>
