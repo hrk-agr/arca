@@ -1,59 +1,32 @@
-import Link from "next/link";
 import Wordmark from "./Wordmark";
-
-const cols = [
-  {
-    title: "Product",
-    links: [
-      { href: "/how-it-works", label: "How it works" },
-      { href: "/how-it-works#sources", label: "Sources" },
-      { href: "/how-it-works#retrieval", label: "Retrieval" },
-      { href: "/how-it-works#mcp", label: "MCP & agents" },
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      { href: "/blog/how-we-built-our-knowledge-base", label: "Engineering blog" },
-      { href: "/about", label: "About Arca" },
-    ],
-  },
-  {
-    title: "Contact",
-    links: [{ href: "mailto:hello@arca-global.com", label: "hello@arca-global.com" }],
-  },
-];
 
 export default function Footer() {
   return (
-    <footer className="border-t border-ink-line bg-ink-paper">
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+    <footer className="border-t border-white/5 bg-night-900">
+      <div className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-14 md:flex-row md:items-start md:justify-between">
         <div className="flex flex-col gap-3">
-          <Wordmark />
-          <p className="max-w-xs text-sm leading-relaxed text-ink-mute">
-            The knowledge base that meets your company&apos;s information where it
-            already lives — and answers with citations.
+          <Wordmark tone="light" />
+          <p className="max-w-xs text-sm leading-relaxed text-slate-400">
+            The context engine that meets your company&apos;s information where
+            it already lives — and answers with citations.
           </p>
         </div>
 
-        {cols.map((col) => (
-          <div key={col.title} className="flex flex-col gap-3 text-sm">
-            <span className="mono-label">{col.title}</span>
-            {col.links.map((l) => (
-              <Link
-                key={l.label}
-                href={l.href}
-                className="text-ink-mute transition-colors hover:text-ink"
-              >
-                {l.label}
-              </Link>
-            ))}
-          </div>
-        ))}
+        <div className="flex flex-col gap-3 text-sm md:items-end">
+          <span className="font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-slate-500">
+            Contact
+          </span>
+          <a
+            href="mailto:hello@arca-global.com"
+            className="text-slate-400 hover:text-white"
+          >
+            hello@arca-global.com
+          </a>
+        </div>
       </div>
 
-      <div className="border-t border-ink-line">
-        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-2 px-6 py-4 text-xs text-ink-faint sm:flex-row sm:items-center">
+      <div className="border-t border-white/5">
+        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-2 px-6 py-4 text-xs text-slate-500 sm:flex-row sm:items-center">
           <p>© {new Date().getFullYear()} Arca. All rights reserved.</p>
           <p className="font-mono uppercase tracking-[0.14em]">
             One embeddings table · every source

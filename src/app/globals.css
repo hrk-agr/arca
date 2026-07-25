@@ -11,6 +11,15 @@ body {
   font-feature-settings: "ss01", "cv01";
 }
 
+::selection {
+  @apply bg-brand-100 text-ink;
+}
+
+a,
+button {
+  @apply transition-colors duration-300 ease-out;
+}
+
 @layer base {
   /* Inline code chips inside prose. */
   article :where(p, li) code {
@@ -22,6 +31,10 @@ body {
   /* Monospace, letter-spaced, uppercase eyebrow label — the signature accent label. */
   .eyebrow {
     @apply font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-brand-500;
+  }
+  /* Eyebrow variant for dark surfaces. */
+  .eyebrow-dark {
+    @apply font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-brand-300;
   }
   .mono-label {
     @apply font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-ink-mute;
@@ -43,5 +56,20 @@ body {
       transparent 1px
     );
     background-size: 22px 22px;
+  }
+  /* Layered indigo/violet/cyan glow washes for dark sections. */
+  .aurora-dark {
+    background:
+      radial-gradient(900px 620px at 14% -2%, rgba(94, 140, 249, 0.4), transparent 62%),
+      radial-gradient(1000px 640px at 86% 4%, rgba(139, 92, 246, 0.32), transparent 62%),
+      radial-gradient(700px 460px at 72% 58%, rgba(34, 211, 238, 0.09), transparent 60%),
+      radial-gradient(1200px 720px at 50% 118%, rgba(59, 106, 240, 0.22), transparent 65%);
+  }
+  /* Cool color washes for light sections. */
+  .aurora-light {
+    background:
+      radial-gradient(840px 480px at 90% -8%, rgba(94, 140, 249, 0.16), transparent 60%),
+      radial-gradient(720px 480px at 2% 40%, rgba(139, 92, 246, 0.1), transparent 60%),
+      radial-gradient(920px 520px at 55% 112%, rgba(34, 211, 238, 0.08), transparent 62%);
   }
 }

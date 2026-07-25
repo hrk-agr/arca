@@ -22,6 +22,14 @@ const config: Config = {
           800: "#1D379A",
           900: "#1D3379",
         },
+        // Deep navy surfaces for the dark hero / footer.
+        night: {
+          DEFAULT: "#0B1120",
+          900: "#070B16",
+          800: "#0B1120",
+          700: "#111A31",
+          card: "#0E1526",
+        },
         // Cool near-black ink + neutrals.
         ink: {
           DEFAULT: "#0f1420",
@@ -34,8 +42,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-display)", "var(--font-inter)", "sans-serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        display: ["var(--font-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       backgroundImage: {

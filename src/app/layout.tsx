@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk, IBM_Plex_Mono } from "next/font/google";
+import { Manrope, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 
-const inter = Inter({
+const sans = Manrope({
   subsets: ["latin"],
-  variable: "--font-inter",
-});
-
-const display = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-sans",
 });
 
 const mono = IBM_Plex_Mono({
@@ -21,12 +16,12 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Arca — Ask your company anything",
+  title: "Arca — Context Engine for Modern Product Teams",
   description:
-    "Arca is an enterprise knowledge base that meets information where it already lives — Slack, code, wikis, incidents — and turns it into cited, trustworthy answers for humans, automations, and agents.",
+    "Arca reconstructs the context scattered across Slack, code, wikis, and incidents into cited answers that engineers, automations, and agents can trust.",
   metadataBase: new URL("https://arca-global.com"),
   openGraph: {
-    title: "Arca — Ask your company anything",
+    title: "Arca — Context Engine for Modern Product Teams",
     description:
       "One embeddings table. Every source. Cited answers for humans, automations, and agents.",
     url: "https://arca-global.com",
@@ -37,13 +32,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${display.variable} ${mono.variable}`}
-    >
+    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
       <body>
         <Nav />
-        <main className="pt-16">{children}</main>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
