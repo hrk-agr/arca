@@ -1,185 +1,225 @@
-import HeroDiagram from "@/components/HeroDiagram";
-import ArchitectureFlow from "@/components/ArchitectureFlow";
+import ProductMock from "@/components/ProductMock";
+import FlowDiagram from "@/components/FlowDiagram";
 
-const stats = [
-  { v: "1", k: "embeddings table", s: "every source lands in the same place" },
-  { v: "6", k: "retrievers in parallel", s: "fused, then reranked" },
-  { v: "3072", k: "dimensions", s: "pgvector · HNSW" },
-  { v: "∞", k: "connectors", s: "add one with a pull request" },
-];
+const SIGNUP = "mailto:hello@arca-global.com?subject=Arca early access";
 
-const sources = [
-  { k: "Slack", v: "Threads distilled into searchable Q&A, live over Socket Mode." },
-  { k: "Code repos", v: "Language-aware chunking across 40 GB+ repositories." },
-  { k: "Wiki / Confluence", v: "Sections embedded with neighbors kept for context." },
-  { k: "Incidents & Jira", v: "Status and resolutions, ranked by recency." },
-  { k: "Netlists & PRM docs", v: "Domain artifacts, queryable like everything else." },
-  { k: "Custom databases", v: "A small Python plugin emits rows into the shared table." },
-];
-
-const interfaces = [
+const useCases = [
   {
-    k: "Web UI",
-    v: "Ask a question, get a cited answer. Planner → executor → synthesizer runs end to end.",
+    n: "01",
+    k: "Ask",
+    v: "Get straight answers about your project, with every claim traced back to the email, call or file it came from.",
   },
   {
-    k: "MCP",
-    v: "Retrieval primitives exposed as direct, LLM-free tools. Claude Code owns the orchestration.",
+    n: "02",
+    k: "Build artifacts",
+    v: "Turn what the project knows into briefs, reports, trackers and small web apps that stay in sync with it.",
   },
   {
-    k: "Automations",
-    v: "The same query surface for bots and pipelines — narrow, structured, stable inputs and outputs.",
+    n: "03",
+    k: "Run routines",
+    v: "Schedule recurring work, like a Monday digest, a weekly status note or a daily check on what changed.",
+  },
+  {
+    n: "04",
+    k: "Browse the web",
+    v: "Use the Chrome extension in your own browser, or run browser tasks in the cloud while you're away.",
+  },
+  {
+    n: "05",
+    k: "Work together",
+    v: "Share a project with your team or a client. Everyone sees the same sources, the same wiki and the same answers.",
+  },
+  {
+    n: "06",
+    k: "Plug in your agents",
+    v: "Give any agent the project as context through the API. Your data stays ready for whichever model you use.",
+  },
+];
+
+const principles = [
+  {
+    k: "Bring your own key",
+    v: "Connect the model provider you already pay for. Arca never marks up your tokens.",
+  },
+  {
+    k: "Priced per seat, not per token",
+    v: "A flat, predictable price per person. Use agents as often as the work needs.",
+  },
+  {
+    k: "Built with the community",
+    v: "Templates, routines and plugins made by the people who use Arca every day.",
+  },
+];
+
+const plans = [
+  {
+    k: "Personal",
+    price: "Free",
+    note: "Free for good",
+    v: "Everything you need to run your own projects.",
+    items: [
+      "Unlimited projects",
+      "Uploads and a project email address",
+      "Living wiki, chat and artifacts",
+      "Bring your own model key",
+    ],
+    cta: "Get early access",
+    featured: false,
+  },
+  {
+    k: "Team",
+    price: "Per seat",
+    note: "One flat price per person",
+    v: "For projects that involve more than one person.",
+    items: [
+      "Everything in Personal",
+      "Shared projects and permissions",
+      "Slack, meeting notes and WhatsApp",
+      "Cloud routines and browser tasks",
+      "API access for your agents",
+    ],
+    cta: "Talk to us",
+    featured: true,
   },
 ];
 
 export default function HomePage() {
   return (
     <>
-      {/* Hero — dark */}
-      <section className="relative overflow-hidden bg-night-900">
-        <div className="pointer-events-none absolute inset-0 aurora-dark" />
-
-        <div className="relative mx-auto max-w-6xl px-6 pb-16 pt-32 md:pt-40">
+      {/* Hero */}
+      <section className="relative overflow-hidden hero-gradient">
+        <div className="relative mx-auto max-w-6xl px-6 pb-24 pt-36 md:pt-44">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="eyebrow-dark">Arca</p>
-            <h1 className="mt-5 font-display text-5xl font-medium leading-[1.06] tracking-tight text-white md:text-6xl">
-              Context Engine for
+            <p className="eyebrow">A workspace for every project</p>
+            <h1 className="mt-6 font-display text-5xl font-medium leading-[1.06] tracking-tight text-ink md:text-[68px]">
+              Everything about a project,
               <br />
-              <span className="bg-gradient-to-r from-brand-300 via-brand-400 to-indigo-300 bg-clip-text text-transparent">
-                Modern Product Teams
-              </span>
+              <em className="font-light italic text-brand-600">in one place.</em>
             </h1>
-            <p className="mx-auto mt-6 max-w-xl text-lg font-light leading-relaxed text-slate-400">
-              Arca reconstructs the context scattered across Slack, code, wikis,
-              and incidents into cited answers that engineers, automations, and
-              agents can trust.
+            <p className="mx-auto mt-7 max-w-xl text-lg font-light leading-relaxed text-ink-mute">
+              Forward emails, drop files, connect Slack and meeting notes. Arca builds a
+              wiki of the project as things arrive. You can ask it questions, have it
+              draft documents and apps, and set up routines that run on a schedule.
             </p>
-            <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <a
-                href="mailto:hello@arca-global.com?subject=Arca demo"
-                className="rounded-full bg-brand-500 px-7 py-3 text-sm font-medium text-white shadow-[0_0_24px_rgba(59,106,240,0.35)] transition-all duration-300 hover:bg-brand-400 hover:shadow-[0_0_36px_rgba(59,106,240,0.5)]"
+                href={SIGNUP}
+                className="rounded-full bg-ink px-8 py-3.5 text-sm font-medium text-ink-paper shadow-[0_12px_30px_-10px_rgba(33,29,22,0.5)] transition-all duration-300 hover:bg-ink-soft"
               >
-                Get a demo
+                Get early access, free
               </a>
               <a
-                href="#architecture"
-                className="rounded-full border border-white/15 px-7 py-3 text-sm font-medium text-slate-300 transition-all duration-300 hover:border-white/30 hover:text-white"
+                href="#how"
+                className="rounded-full border border-ink/15 bg-white/50 px-8 py-3.5 text-sm font-medium text-ink-soft backdrop-blur-sm transition-all duration-300 hover:border-ink/30 hover:text-ink"
               >
-                See the architecture ↓
+                See how it works ↓
               </a>
             </div>
           </div>
 
           <div className="mt-16 md:mt-20">
-            <HeroDiagram />
-          </div>
-
-          {/* Stats */}
-          <div className="mt-16 grid grid-cols-2 gap-8 border-t border-white/5 pt-10 md:grid-cols-4">
-            {stats.map((s) => (
-              <div key={s.k}>
-                <div className="font-display text-4xl font-medium text-white">
-                  {s.v}
-                </div>
-                <div className="mt-1 font-mono text-[11px] font-medium uppercase tracking-[0.1em] text-brand-300">
-                  {s.k}
-                </div>
-                <div className="mt-1 text-xs text-slate-500">{s.s}</div>
-              </div>
-            ))}
+            <ProductMock />
           </div>
         </div>
       </section>
 
-      {/* Sources — light */}
-      <section id="sources" className="relative scroll-mt-16 bg-white px-6 py-24">
-        <div className="pointer-events-none absolute inset-0 aurora-light" />
-        <div className="relative mx-auto max-w-6xl">
-          <div className="max-w-2xl">
-            <p className="eyebrow">Meeting data where it lives</p>
-            <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-ink md:text-4xl">
-              The single source of truth rarely works in practice.
+      {/* The problem */}
+      <section className="relative overflow-hidden bg-ink-paper px-6 py-28">
+        <div className="pointer-events-none absolute inset-0 ember-light" />
+        <div className="relative mx-auto grid max-w-6xl gap-12 md:grid-cols-[1fr_1.1fr] md:items-end">
+          <div>
+            <p className="eyebrow">The problem</p>
+            <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-ink md:text-[40px] md:leading-[1.15]">
+              A project is spread across inboxes, threads and calls.
+              <em className="font-light italic text-brand-600"> No AI sees all of it.</em>
             </h2>
-            <p className="mt-4 font-light leading-relaxed text-ink-mute">
-              Information is generated wherever it&apos;s convenient: suggested
-              edits in a doc, threads in Slack, code references in GitHub, status
-              in Jira. Each platform is tailor-made for its domain. So instead of
-              forcing everything into one rigid system, Arca extracts from each
-              source directly — with minimal change to how your teams already
-              work.
-            </p>
           </div>
-
-          <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {sources.map((s) => (
-              <div
-                key={s.k}
-                className="rounded-2xl border border-ink-line/70 bg-white/70 p-6 backdrop-blur-sm transition-all duration-300 hover:border-brand-200 hover:shadow-[0_8px_30px_rgba(15,20,32,0.06)]"
-              >
-                <h3 className="font-display text-base font-semibold text-ink">
-                  {s.k}
-                </h3>
-                <p className="mt-2 text-sm font-light leading-relaxed text-ink-mute">
-                  {s.v}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <p className="mt-8 max-w-2xl text-sm font-light leading-relaxed text-ink-mute">
-            Projects bundle the channels, repos, databases, and doc spaces
-            relevant to a team — the same source can belong to several — so new
-            hires pick a default project at onboarding and get high-signal
-            answers without learning which channels matter.
+          <p className="text-[17px] font-light leading-relaxed text-ink-mute">
+            The decision is in an email, the context is in a WhatsApp group, and the
+            numbers are in a PDF someone uploaded last month. Every chat starts from
+            nothing and you paste in the same background again. Arca collects all of
+            it in one project, so you and your agents start with the full picture.
           </p>
         </div>
       </section>
 
-      {/* Architecture — the technical implementation */}
+      {/* How it works */}
       <section
-        id="architecture"
-        className="relative scroll-mt-16 bg-gradient-to-b from-white via-ink-paper to-white px-6 py-24"
+        id="how"
+        className="relative scroll-mt-16 overflow-hidden bg-gradient-to-b from-ink-paper via-ink-wash to-ink-paper px-6 py-28"
       >
-        <div className="pointer-events-none absolute inset-0 aurora-light" />
+        <div className="pointer-events-none absolute inset-0 ember-light" />
         <div className="relative mx-auto max-w-6xl">
           <div className="max-w-2xl">
-            <p className="eyebrow">The technical implementation</p>
-            <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-ink md:text-4xl">
-              One embeddings table. Six retrievers. Cited answers.
+            <p className="eyebrow">How it works</p>
+            <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-ink md:text-[40px] md:leading-[1.15]">
+              Send it in. <em className="font-light italic text-brand-600">Arca organises it.</em>
             </h2>
-            <p className="mt-4 font-light leading-relaxed text-ink-mute">
-              Arca continually ingests data from across your company into a
-              single query-ready datastore, then fuses several retrieval
-              techniques — each covering the weaknesses of the others — before
-              synthesizing an answer.
+            <p className="mt-5 text-[17px] font-light leading-relaxed text-ink-mute">
+              Every project gets its own email address and connectors. While you work, a
+              long-running agent reads what comes in and rewrites the project wiki:
+              who&apos;s involved, what was decided, what&apos;s due and what&apos;s still
+              open.
             </p>
           </div>
 
-          <div className="mt-14">
-            <ArchitectureFlow />
+          <div className="mt-16">
+            <FlowDiagram />
+          </div>
+
+          {/* email callout */}
+          <div className="mt-6 grid gap-6 rounded-3xl border border-ink-line/80 bg-white/70 p-8 backdrop-blur-sm md:grid-cols-[1fr_auto] md:items-center md:p-10">
+            <div>
+              <h3 className="font-display text-2xl font-medium text-ink">
+                CC your project.
+              </h3>
+              <p className="mt-2 max-w-xl text-[15px] font-light leading-relaxed text-ink-mute">
+                Add the project&apos;s address to any email thread and Arca files it,
+                attachments included. Nobody else on the thread has to install anything.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-ink-line bg-ink-paper px-5 py-4 font-mono text-[12px] leading-6 text-ink-soft">
+              <div>
+                <span className="text-ink-faint">To&nbsp;&nbsp;</span> priya@vendor.co
+              </div>
+              <div>
+                <span className="text-ink-faint">Cc&nbsp;&nbsp;</span>
+                <span className="rounded bg-brand-50 px-1.5 py-0.5 text-brand-700">
+                  q4-launch@in.arca-global.com
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Interfaces */}
-      <section id="interfaces" className="relative scroll-mt-16 bg-white px-6 pb-28 pt-8">
-        <div className="pointer-events-none absolute inset-0 rotate-180 aurora-light" />
+      {/* Use cases */}
+      <section id="build" className="relative scroll-mt-16 overflow-hidden bg-ink-paper px-6 py-28">
+        <div className="pointer-events-none absolute inset-0 ember-light" />
         <div className="relative mx-auto max-w-6xl">
           <div className="max-w-2xl">
-            <p className="eyebrow">Humans, automations, and agents</p>
-            <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-ink md:text-4xl">
-              One retrieval layer. Every consumer.
+            <p className="eyebrow">What you can do</p>
+            <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-ink md:text-[40px] md:leading-[1.15]">
+              The project knows the background.
+              <br />
+              <em className="font-light italic text-brand-600">You decide what to do with it.</em>
             </h2>
           </div>
-          <div className="mt-12 grid gap-4 md:grid-cols-3">
-            {interfaces.map((i) => (
+
+          <div className="mt-16 grid gap-px overflow-hidden rounded-3xl border border-ink-line/80 bg-ink-line/60 sm:grid-cols-2 lg:grid-cols-3">
+            {useCases.map((u) => (
               <div
-                key={i.k}
-                className="flex flex-col rounded-2xl border border-ink-line/70 bg-white p-6 transition-all duration-300 hover:border-brand-200 hover:shadow-[0_8px_30px_rgba(15,20,32,0.06)]"
+                key={u.n}
+                className="bg-ink-paper p-8 transition-colors duration-300 hover:bg-white md:p-10"
               >
-                <span className="mono-label">{i.k}</span>
-                <p className="mt-3 text-sm font-light leading-relaxed text-ink-soft">
-                  {i.v}
+                <span className="font-mono text-[11px] font-medium tracking-[0.14em] text-brand-500">
+                  {u.n}
+                </span>
+                <h3 className="mt-4 font-display text-[22px] font-medium leading-snug text-ink">
+                  {u.k}
+                </h3>
+                <p className="mt-3 text-[15px] font-light leading-relaxed text-ink-mute">
+                  {u.v}
                 </p>
               </div>
             ))}
@@ -187,23 +227,155 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA — dark */}
-      <section className="relative overflow-hidden bg-night-900 px-6 py-28">
-        <div className="pointer-events-none absolute inset-0 aurora-dark" />
-        <div className="relative mx-auto flex max-w-2xl flex-col items-center gap-6 text-center">
-          <p className="eyebrow-dark">Get started</p>
-          <h2 className="font-display text-4xl font-medium tracking-tight text-white">
-            Give every team a single place to ask.
+      {/* Developers — dark */}
+      <section id="developers" className="relative scroll-mt-16 overflow-hidden bg-vault-900 px-6 py-28">
+        <div className="pointer-events-none absolute inset-0 ember-dark" />
+        <div className="relative mx-auto grid max-w-6xl gap-14 lg:grid-cols-[1fr_1.15fr] lg:items-center">
+          <div>
+            <p className="eyebrow-dark">For developers</p>
+            <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-ink-paper md:text-[40px] md:leading-[1.15]">
+              A context layer for
+              <em className="font-light italic text-brand-300"> any agent.</em>
+            </h2>
+            <p className="mt-5 text-[17px] font-light leading-relaxed text-ink-faint">
+              Every project is available through an API. Chats, artifacts, workflows and
+              cron jobs are objects you can create and run from code. Point your own agent
+              at a project and it gets the same context Arca has.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-2">
+              {["Chats", "Artifacts", "Workflows", "Cron jobs"].map((o) => (
+                <span
+                  key={o}
+                  className="rounded-full border border-brand-400/30 bg-brand-500/10 px-3.5 py-1.5 font-mono text-[11px] text-brand-200"
+                >
+                  {o}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="overflow-hidden rounded-2xl border border-white/10 bg-vault-card shadow-[0_30px_80px_-30px_rgba(0,0,0,0.7)]">
+            <div className="flex items-center justify-between border-b border-white/5 px-5 py-3">
+              <span className="font-mono text-[11px] text-ink-faint">routine.ts</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-brand-300/80">
+                Preview
+              </span>
+            </div>
+            <pre className="overflow-x-auto px-5 py-5 font-mono text-[12.5px] leading-6 text-ink-line">
+              <code>
+                <span className="text-brand-300">const</span> project = arca.projects.
+                <span className="text-amber-200">get</span>(
+                <span className="text-emerald-300">&quot;q4-launch&quot;</span>);
+                {"\n\n"}
+                <span className="text-ink-faint">{"// Ask with full project context"}</span>
+                {"\n"}
+                <span className="text-brand-300">const</span> {"{ answer, citations }"} ={" "}
+                <span className="text-brand-300">await</span> project.chats.
+                <span className="text-amber-200">ask</span>({"\n"}
+                {"  "}
+                <span className="text-emerald-300">&quot;What&apos;s blocking the vendor contract?&quot;</span>
+                {"\n"});
+                {"\n\n"}
+                <span className="text-ink-faint">{"// Every Monday, 9am"}</span>
+                {"\n"}
+                <span className="text-brand-300">await</span> project.cron.
+                <span className="text-amber-200">create</span>({"{"}
+                {"\n"}
+                {"  "}schedule: <span className="text-emerald-300">&quot;0 9 * * MON&quot;</span>,
+                {"\n"}
+                {"  "}task: <span className="text-emerald-300">&quot;Post a status digest to #launch-team&quot;</span>,
+                {"\n"}
+                {"}"});
+              </code>
+            </pre>
+          </div>
+        </div>
+      </section>
+
+      {/* Principles + pricing */}
+      <section id="pricing" className="relative scroll-mt-16 overflow-hidden bg-ink-paper px-6 py-28">
+        <div className="pointer-events-none absolute inset-0 ember-light" />
+        <div className="relative mx-auto max-w-6xl">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="eyebrow">Pricing</p>
+            <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-ink md:text-[40px] md:leading-[1.15]">
+              Free to start.
+              <em className="font-light italic text-brand-600"> No token bills.</em>
+            </h2>
+            <p className="mt-5 text-[17px] font-light leading-relaxed text-ink-mute">
+              Agents cost very little to run on everyday work when you aren&apos;t paying
+              someone else&apos;s margin on every token.
+            </p>
+          </div>
+
+          <div className="mt-14 grid gap-6 md:grid-cols-3">
+            {principles.map((p) => (
+              <div key={p.k} className="text-center md:text-left">
+                <div className="mx-auto h-px w-12 bg-brand-400 md:mx-0" />
+                <h3 className="mt-5 font-display text-xl font-medium text-ink">{p.k}</h3>
+                <p className="mt-2 text-[15px] font-light leading-relaxed text-ink-mute">{p.v}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mx-auto mt-16 grid max-w-4xl gap-5 md:grid-cols-2">
+            {plans.map((p) => (
+              <div
+                key={p.k}
+                className={`flex flex-col rounded-3xl border p-9 ${
+                  p.featured
+                    ? "border-brand-300 bg-white shadow-[0_24px_60px_-24px_rgba(160,74,23,0.35)]"
+                    : "border-ink-line/80 bg-white/60"
+                }`}
+              >
+                <div className="flex items-baseline justify-between">
+                  <h3 className="font-display text-2xl font-medium text-ink">{p.k}</h3>
+                  <span className="mono-label">{p.note}</span>
+                </div>
+                <p className="mt-4 font-display text-4xl font-light text-ink">{p.price}</p>
+                <p className="mt-2 text-[15px] font-light text-ink-mute">{p.v}</p>
+                <ul className="mt-6 flex-1 space-y-2.5">
+                  {p.items.map((i) => (
+                    <li key={i} className="flex gap-3 text-[14px] text-ink-soft">
+                      <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-brand-400" />
+                      {i}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href={SIGNUP}
+                  className={`mt-8 rounded-full px-6 py-3 text-center text-sm font-medium transition-all duration-300 ${
+                    p.featured
+                      ? "bg-ink text-ink-paper hover:bg-ink-soft"
+                      : "border border-ink/15 text-ink-soft hover:border-ink/30 hover:text-ink"
+                  }`}
+                >
+                  {p.cta}
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA — dark vault */}
+      <section className="relative overflow-hidden bg-vault-900 px-6 py-32">
+        <div className="pointer-events-none absolute inset-0 ember-dark" />
+        <div className="relative mx-auto flex max-w-2xl flex-col items-center gap-7 text-center">
+          <p className="eyebrow-dark">Early access</p>
+          <h2 className="font-display text-4xl font-medium leading-tight tracking-tight text-ink-paper md:text-5xl">
+            Start your first project
+            <em className="font-light italic text-brand-300"> today.</em>
           </h2>
-          <p className="text-lg font-light text-slate-400">
-            See how Arca connects to your stack and starts returning cited
-            answers — usually within the first week.
+          <p className="max-w-lg text-lg font-light leading-relaxed text-ink-faint">
+            We&apos;re letting people in a few at a time. Tell us what you&apos;re working
+            on and we&apos;ll set up your first project with you.
           </p>
           <a
-            href="mailto:hello@arca-global.com?subject=Arca demo"
-            className="mt-2 rounded-full bg-brand-500 px-8 py-3.5 text-sm font-medium text-white shadow-[0_0_24px_rgba(59,106,240,0.35)] transition-all duration-300 hover:bg-brand-400 hover:shadow-[0_0_36px_rgba(59,106,240,0.5)]"
+            href={SIGNUP}
+            className="mt-2 rounded-full bg-brand-500 px-9 py-4 text-sm font-medium text-white shadow-[0_0_36px_rgba(192,94,34,0.4)] transition-all duration-300 hover:bg-brand-400 hover:shadow-[0_0_50px_rgba(213,124,66,0.55)]"
           >
-            Get a demo
+            Request early access
           </a>
         </div>
       </section>

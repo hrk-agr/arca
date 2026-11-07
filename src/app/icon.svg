@@ -1,19 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <defs>
     <linearGradient id="t" x1="8" y1="7" x2="24" y2="16" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#A5C4FF"/>
-      <stop offset="1" stop-color="#8EB3FD"/>
+      <stop stop-color="#EFC6A6"/>
+      <stop offset="1" stop-color="#E3A171"/>
     </linearGradient>
     <linearGradient id="l" x1="8" y1="11.5" x2="16" y2="25" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#5E8CF9"/>
-      <stop offset="1" stop-color="#3B6AF0"/>
+      <stop stop-color="#D57C42"/>
+      <stop offset="1" stop-color="#C05E22"/>
     </linearGradient>
     <linearGradient id="r" x1="16" y1="16" x2="24" y2="25" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#254FDD"/>
-      <stop offset="1" stop-color="#1D3EBE"/>
+      <stop stop-color="#A04A17"/>
+      <stop offset="1" stop-color="#7F3A13"/>
     </linearGradient>
   </defs>
-  <rect width="32" height="32" rx="8" fill="#0B1120"/>
+  <rect width="32" height="32" rx="8" fill="#14100B"/>
   <path d="M16 6.2 24.6 11.1 16 16 7.4 11.1Z" fill="url(#t)"/>
   <path d="M7.4 11.1 16 16v9.8l-8.6-4.9Z" fill="url(#l)"/>
   <path d="M24.6 11.1 16 16v9.8l8.6-4.9Z" fill="url(#r)"/>

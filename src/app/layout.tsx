@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
-import { Manrope, IBM_Plex_Mono } from "next/font/google";
+import { Inter, Fraunces, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 
-const sans = Manrope({
+const sans = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
+});
+
+const display = Fraunces({
+  subsets: ["latin"],
+  axes: ["opsz"],
+  variable: "--font-display",
 });
 
 const mono = IBM_Plex_Mono({
@@ -16,14 +22,14 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Arca — Context Engine for Modern Product Teams",
+  title: "Arca — Everything about a project, in one place",
   description:
-    "Arca reconstructs the context scattered across Slack, code, wikis, and incidents into cited answers that engineers, automations, and agents can trust.",
+    "Arca brings a project's emails, files, chats and meeting notes into one place, keeps a living wiki of it, and lets agents answer questions, build artifacts and run routines on top. Bring your own key; priced per seat, not per token.",
   metadataBase: new URL("https://arca-global.com"),
   openGraph: {
-    title: "Arca — Context Engine for Modern Product Teams",
+    title: "Arca — Everything about a project, in one place",
     description:
-      "One embeddings table. Every source. Cited answers for humans, automations, and agents.",
+      "Send a project's emails, files and chats to Arca. It keeps a living wiki of the project, and agents can answer questions, build artifacts and run routines on it.",
     url: "https://arca-global.com",
     siteName: "Arca",
     type: "website",
@@ -32,7 +38,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
+    <html lang="en" className={`${sans.variable} ${display.variable} ${mono.variable}`}>
       <body>
         <Nav />
         <main>{children}</main>
